@@ -1,5 +1,7 @@
 const express = require('express')
 const path = require('path')
+const Song = require('./model/Song.js')
+const PlayList = require('./model/Playlist.js')
 const app = express()
 
 const directPathToDist = path.join(__dirname, '..', 'website', 'dist')
