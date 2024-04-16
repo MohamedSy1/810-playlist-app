@@ -24,6 +24,7 @@ class Song {
         Song.#allSong.splice(songId, 1);
         return true
     }
+
 }
 
 module.exports = Song;

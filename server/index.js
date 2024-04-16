@@ -1,6 +1,5 @@
 const express = require('express')
 const path = require('path')
-const Song = require('./model/Song.js')
 const PlayList = require('./model/Playlist.js')
 const app = express()
 
@@ -12,9 +11,16 @@ const logRoutes = (req, res, next) => {
     next();
 }
 
+const serveAllPlaylist = (req, res, next) => {
+    res.send(PlayList.list())
+}
+
 app.use(logRoutes)
 app.use(express.static(directPathToDist))
 
-app.listen(process.env.PORT, () => {
-    `Server is now running on http://localhost:${process.env.PORT}`
+
+app.get('/api/songs', serveAllPlaylist)
+
+app.listen(8080, () => {
+    console.log(`Server is now running on http://localhost:${8080}`)
 })

@@ -1,9 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Search from './components/search'
 import Songs from './components/songs'
+import fetchData from './utils/fetchData'
 
 function App() {
+  const [song, setSongs] = useState([])
+  const [error, setError] = useState()
+
+  useEffect(() => {
+    // 
+    const API_URL = `/api/songs`
+    const doFetch = async () => {
+      try {
+        const [data, error] = await fetchData(API_URL)
+        if (data) setSongs(data)
+        console.log(data)
+      } catch (error) {
+        if (error) setError(error)
+      }
+    }
+    doFetch()
+  }, [])
 
   return (
     <div>
@@ -14,7 +32,7 @@ function App() {
         </div>
       </div >
       <div className=' ml-96 md:mx-auto md:max-w-fit'>
-        <Songs />
+        <Songs song={song} />
       </div>
     </div >
   )
